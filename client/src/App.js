@@ -54,7 +54,7 @@ const Nav = styled.div`
 
 const Header = styled.div`
   display: flex;
-  height: 200px;
+  height: 100px;
   justify-content: space-between;
   max-width: 100vw;
 `;
@@ -86,6 +86,6 @@ const Footer = styled.div`
   width: 100%;
 `;
 
-const Logo = styled.div`
+const Logo = styled.img`
   height: 100px;
 `;
