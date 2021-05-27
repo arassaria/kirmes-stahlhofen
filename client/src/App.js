@@ -1,25 +1,87 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyle from "./GlobalStyles";
+import styled from "styled-components/macro";
+import LogoMitText from "./assets/Logo_mit_Text.png";
+import Facebook from "./assets/streamdeck_key.png";
+import Stream from "./components/Stream";
+import { BrowserRouter as Router } from "react-router-dom";
 
-function App() {
+const App = () => {
+  const handleOnClick = () => {
+    alert("Hi");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <GlobalStyle />
+      <Header>
+        <HeaderGroupA>
+          <img src={LogoMitText} alt="Logo" />
+          <h1>Kirmes Stahlhofen</h1>
+        </HeaderGroupA>
+        <img src={Facebook} alt="Hier Facebook-Logo einfügen" />
+      </Header>
+      <Nav>
+        <li>Programm</li>
+        <li>Sponsoren</li>
+        <li>Livestream</li>
+        <li>Impressum</li>
+        <li>Kontakt</li>
+        <li>Login</li>
+      </Nav>
+      <Body>
+        <Stream />
+        <Form>
+          <input type="text" />
+          <input type="text" />
+          <button onClick={handleOnClick}>Drück mich!</button>
+        </Form>
+        <Footer>
+          <p>Kirmes Stahlhofen 2021</p>
+        </Footer>
+      </Body>
+    </Router>
   );
-}
+};
 
 export default App;
+
+const Nav = styled.div`
+  background-color: grey;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const Header = styled.div`
+  display: flex;
+  height: 200px;
+  justify-content: space-between;
+  max-width: 100vw;
+`;
+
+const HeaderGroupA = styled.div`
+  display: flex;
+  height: inherit;
+  width: 100%;
+`;
+
+const Body = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const Form = styled.div`
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Footer = styled.div`
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+`;
