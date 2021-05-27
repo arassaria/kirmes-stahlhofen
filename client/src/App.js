@@ -15,10 +15,10 @@ const App = () => {
       <GlobalStyle />
       <Header>
         <HeaderGroupA>
-          <img src={LogoMitText} alt="Logo" />
+          <Logo src={LogoMitText} alt="Logo" />
           <h1>Kirmes Stahlhofen</h1>
         </HeaderGroupA>
-        <img src={Facebook} alt="Hier Facebook-Logo einfügen" />
+        <Logo src={Facebook} alt="Hier Facebook-Logo einfügen" />
       </Header>
       <Nav>
         <li>Programm</li>
@@ -84,4 +84,8 @@ const Footer = styled.div`
   bottom: 0;
   text-align: center;
   width: 100%;
+`;
+
+const Logo = styled.div`
+  height: 100px;
 `;
