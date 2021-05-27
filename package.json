@@ -10,7 +10,8 @@
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "cd client && concurrently \"npm run build\" \"npm run build-storybook\"",
     "start": "node server.js",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install",
+    "get-fork": "git fetch upstream && git merge upstream/main"
   },
   "repository": {
     "type": "git",

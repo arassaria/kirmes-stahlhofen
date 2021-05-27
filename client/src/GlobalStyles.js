@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
         width: 100%;
         overflow-x: hidden;
         height: 100vh;
+        margin: 0;
     }
 `;
 
