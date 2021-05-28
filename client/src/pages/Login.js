@@ -3,12 +3,20 @@ import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const handleOnClick = () => {
+    alert(
+      "An dieser Stelle wird man eingeloggt. Nutze doch einfach die Links weiter unten um dein Ziel zu erreichen."
+    );
+  };
+
   return (
     <Body>
       <LoginForm>
         <Input type="text" placeholder="Benutzername" />
         <Input type="password" placeholder="Passwort" />
-        <Button type="submit">Einloggen</Button>
+        <Button type="submit" onClick={handleOnClick}>
+          Einloggen
+        </Button>
         <Link to="/admin">
           Zum Administrator-Bereich(Shortcut während des Developments)
         </Link>
