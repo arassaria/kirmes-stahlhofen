@@ -7,8 +7,16 @@ const GlobalStyle = createGlobalStyle`
         background-size: cover;
         width: 100%;
         overflow-x: hidden;
-        height: 100vh;
+        height: 100vw;
         margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    a:hover {
+        text-decoration: underline;
     }
 `;
 
