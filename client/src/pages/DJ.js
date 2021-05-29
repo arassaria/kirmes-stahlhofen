@@ -37,7 +37,7 @@ const DJ = () => {
                     {
                       song: musicRequest.song,
                       artist: musicRequest.artist,
-                      status: "1",
+                      status: "2",
                     }
                   );
                 }}
@@ -72,7 +72,7 @@ const DJ = () => {
                       name: greeting.name,
                       from: greeting.from,
                       message: greeting.message,
-                      status: "1",
+                      status: "2",
                     }
                   );
                 }}
