@@ -3,15 +3,18 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const { connectToDb } = require("./lib/database");
+const { getCollection } = require("./lib/serverMethods");
 const app = express();
 const port = process.env.PORT || 4200;
 const admin = require("./routes/admin");
 const dj = require("./routes/dj");
+const user = require("./routes/user");
 
 app.use(express.json());
 
 app.use("/api/admin", admin);
 app.use("/api/dj", dj);
+app.use("/api/user", user);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 

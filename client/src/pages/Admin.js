@@ -1,42 +1,50 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components/macro";
+import { getAdminData } from "../utils/api";
 
 const Admin = () => {
+  const [musicRequests, setMusicRequests] = useState([]);
+  const [greetings, setGreetings] = useState([]);
+
+  useEffect(() => {
+    try {
+      const doFetch = async () => {
+        const musicRequests = await getAdminData({ collectionName: "music" });
+        const greetings = await getAdminData({ collectionName: "greets" });
+        setMusicRequests(musicRequests);
+        setGreetings(greetings);
+      };
+      doFetch();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <Body>
       <Wishlist>
-        <li>
-          <span>Musikwunsch 1</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
-        <li>
-          <span>Musikwunsch 2</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
-        <li>
-          <span>Musikwunsch 3</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
+        {musicRequests?.map((musicRequest) => (
+          <li key={musicRequest.id} id={musicRequest.id}>
+            <Highlight>{musicRequest.song}</Highlight> by{" "}
+            <Highlight>{musicRequest.artist}</Highlight>
+            <AllowButton>✔</AllowButton>
+            <DenyButton>X</DenyButton>
+          </li>
+        ))}
       </Wishlist>
       <GreetingsList>
-        <li>
-          <span>Gruß 1</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
-        <li>
-          <span>Gruß 2</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
-        <li>
-          <span>Gruß 3</span>
-          <button>Zulassen</button>
-          <button>entfernen</button>
-        </li>
+        {greetings?.map((greeting) => (
+          <li key={greeting.id} id={greeting.id}>
+            <span>
+              <Highlight>{greeting.from}</Highlight> möchte{" "}
+              <Highlight>{greeting.name}</Highlight> mit folgendem Grüßen:
+              <Message>{greeting.message}</Message>
+            </span>
+            <AllowButton>✔</AllowButton>
+            <DenyButton>X</DenyButton>
+          </li>
+        ))}
       </GreetingsList>
     </Body>
   );
@@ -81,4 +89,28 @@ const GreetingsList = styled.ul`
       margin-bottom: 0;
     }
   }
+`;
+
+const Highlight = styled.span`
+  color: limegreen;
+  font-style: italic;
+`;
+
+const Message = styled.span`
+  color: blue;
+  font-style: italic;
+`;
+
+const AllowButton = styled.button`
+  background-color: limegreen;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+`;
+
+const DenyButton = styled.button`
+  background-color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 `;
