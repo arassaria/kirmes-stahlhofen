@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         background-size: cover;
         width: 100%;
-        overflow-x: hidden;
+        overflow: hidden;
         height: 100vw;
         margin: 0;
     }

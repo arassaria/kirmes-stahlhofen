@@ -99,7 +99,7 @@ const HeaderGroupA = styled.div`
   width: 100%;
   @media screen and (min-width: 900px) {
     > :first-child {
-      margin: 0 0 10px 0;
+      margin: 0 10px 0 0;
     }
   }
   @media screen and (max-width: 900px) {

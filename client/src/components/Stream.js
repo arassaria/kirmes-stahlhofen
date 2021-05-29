@@ -5,8 +5,6 @@ const Stream = () => {
   return (
     <IFrame
       src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FPrySonerGG%2Fvideos%2F1191703617941733%2F&show_text=false&width=560&t=0"
-      width="560"
-      height="314"
       scrolling="no"
       frameborder="0"
       allowfullscreen="true"
@@ -22,4 +20,6 @@ export default Stream;
 const IFrame = styled.iframe`
   border: none;
   overflow: hidden;
+  width: 560px;
+  height: 314px;
 `;
