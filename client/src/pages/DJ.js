@@ -1,42 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
+import { getDJData, updateData, deleteData } from "../utils/api";
 
 const DJ = () => {
+  const [musicRequests, setMusicRequests] = useState([]);
+  const [greetings, setGreetings] = useState([]);
+
+  useEffect(() => {
+    try {
+      const doFetch = async () => {
+        const musicRequests = await getDJData({ collectionName: "music" });
+        const greetings = await getDJData({ collectionName: "greets" });
+        setMusicRequests(musicRequests);
+        setGreetings(greetings);
+      };
+      doFetch();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <Body>
       <Wishlist>
-        <li>
-          <span>Musikwunsch 1</span>
-          <button>Gespielt</button>
-          <button>Löschen</button>
-        </li>
-        <li>
-          <span>Musikwunsch 2</span>
-          <button>Gespielt</button>
-          <button>Löschen</button>
-        </li>
-        <li>
-          <span>Musikwunsch 3</span>
-          <button>Gespielt</button>
-          <button>Löschen</button>
-        </li>
+        {musicRequests?.map((musicRequest) => (
+          <li key={musicRequest._id} id={musicRequest._id}>
+            <span>
+              <Highlight>{musicRequest.song}</Highlight> by{" "}
+              <Highlight>{musicRequest.artist}</Highlight>
+            </span>
+            <Form>
+              <AllowButton
+                onClick={() => {
+                  updateData(
+                    { collectionName: "music", id: musicRequest._id },
+                    {
+                      song: musicRequest.song,
+                      artist: musicRequest.artist,
+                      status: "1",
+                    }
+                  );
+                }}
+              >
+                ✔
+              </AllowButton>
+              <DenyButton
+                onClick={() => {
+                  deleteData({ collectionName: "music", id: musicRequest._id });
+                }}
+              >
+                X
+              </DenyButton>
+            </Form>
+          </li>
+        ))}
       </Wishlist>
       <GreetingsList>
-        <li>
-          <span>Gruß 1</span>
-          <button>Gegrüßt</button>
-          <button>Löschen</button>
-        </li>
-        <li>
-          <span>Gruß 2</span>
-          <button>Gegrüßt</button>
-          <button>Löschen</button>
-        </li>
-        <li>
-          <span>Gruß 3</span>
-          <button>Gegrüßt</button>
-          <button>Löschen</button>
-        </li>
+        {greetings?.map((greeting) => (
+          <li key={greeting._id} id={greeting._id}>
+            <span>
+              <Highlight>{greeting.from}</Highlight> möchte{" "}
+              <Highlight>{greeting.name}</Highlight> mit folgendem Grüßen:
+              <Message>{greeting.message}</Message>
+            </span>
+            <Form>
+              <AllowButton
+                onClick={() => {
+                  updateData(
+                    { collectionName: "greets", id: greeting._id },
+                    {
+                      name: greeting.name,
+                      from: greeting.from,
+                      message: greeting.message,
+                      status: "1",
+                    }
+                  );
+                }}
+              >
+                ✔
+              </AllowButton>
+              <DenyButton
+                onClick={() => {
+                  deleteData({ collectionName: "greets", id: greeting._id });
+                }}
+              >
+                X
+              </DenyButton>
+            </Form>
+          </li>
+        ))}
       </GreetingsList>
     </Body>
   );
@@ -63,6 +115,10 @@ const Wishlist = styled.ul`
   list-style-type: none;
   li {
     margin-bottom: 5px;
+    width: 60%;
+    margin: 4px auto;
+    display: flex;
+    justify-content: space-between;
     :last-of-type {
       margin-bottom: 0;
     }
@@ -77,8 +133,38 @@ const GreetingsList = styled.ul`
   margin-top: 5%;
   li {
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
     :last-of-type {
       margin-bottom: 0;
     }
   }
+`;
+
+const Highlight = styled.span`
+  color: limegreen;
+  font-style: italic;
+`;
+
+const Message = styled.span`
+  color: blue;
+  font-style: italic;
+`;
+
+const AllowButton = styled.button`
+  background-color: limegreen;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+`;
+
+const DenyButton = styled.button`
+  background-color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+`;
+
+const Form = styled.form`
+  display: inline-block;
 `;

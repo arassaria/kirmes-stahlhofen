@@ -3,6 +3,7 @@ const {
   getAdminView,
   deleteData,
   updateData,
+  getStreamSource,
 } = require("../lib/serverMethods");
 
 const router = express.Router();
@@ -63,6 +64,28 @@ router.delete("/greets", async (req, res, next) => {
     await deleteData({ collectionName: greetings, id });
     res.send("Greeting request deleted");
   } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.get("/stream", async (req, res, next) => {
+  const id = "60b267c1d093d84d5dd2e01e";
+  try {
+    const data = await getStreamSource({ id });
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    next(new Error(error));
+  }
+});
+
+router.patch("/stream", async (req, res, next) => {
+  const id = "60b267c1d093d84d5dd2e01e";
+  try {
+    await updateData({ collectionName: "streamSource", id, data: req.body });
+    res.send("Stream source updated");
+  } catch (error) {
+    console.log(error);
     next(new Error(error));
   }
 });

@@ -2,11 +2,17 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components/macro";
-import { getAdminData } from "../utils/api";
+import {
+  deleteData,
+  getAdminData,
+  updateData,
+  updateStreamSource,
+} from "../utils/api";
 
 const Admin = () => {
   const [musicRequests, setMusicRequests] = useState([]);
   const [greetings, setGreetings] = useState([]);
+  const [streamSource, setStreamSource] = useState("");
 
   useEffect(() => {
     try {
@@ -21,28 +27,93 @@ const Admin = () => {
       console.log(error);
     }
   }, []);
+
+  const handleOnChange = (event) => {
+    setStreamSource(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateStreamSource({ src: streamSource });
+    setStreamSource("");
+  };
+
   return (
     <Body>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={streamSource}
+          placeholder="StreamSource"
+          onChange={handleOnChange}
+        />
+        <input type="submit" />
+      </form>
       <Wishlist>
         {musicRequests?.map((musicRequest) => (
-          <li key={musicRequest.id} id={musicRequest.id}>
-            <Highlight>{musicRequest.song}</Highlight> by{" "}
-            <Highlight>{musicRequest.artist}</Highlight>
-            <AllowButton>✔</AllowButton>
-            <DenyButton>X</DenyButton>
+          <li key={musicRequest._id} id={musicRequest._id}>
+            <span>
+              <Highlight>{musicRequest.song}</Highlight> by{" "}
+              <Highlight>{musicRequest.artist}</Highlight>
+            </span>
+            <Form>
+              <AllowButton
+                onClick={() => {
+                  updateData(
+                    { collectionName: "music", id: musicRequest._id },
+                    {
+                      song: musicRequest.song,
+                      artist: musicRequest.artist,
+                      status: "1",
+                    }
+                  );
+                }}
+              >
+                ✔
+              </AllowButton>
+              <DenyButton
+                onClick={() => {
+                  deleteData({ collectionName: "music", id: musicRequest._id });
+                }}
+              >
+                X
+              </DenyButton>
+            </Form>
           </li>
         ))}
       </Wishlist>
       <GreetingsList>
         {greetings?.map((greeting) => (
-          <li key={greeting.id} id={greeting.id}>
+          <li key={greeting._id} id={greeting._id}>
             <span>
               <Highlight>{greeting.from}</Highlight> möchte{" "}
               <Highlight>{greeting.name}</Highlight> mit folgendem Grüßen:
               <Message>{greeting.message}</Message>
             </span>
-            <AllowButton>✔</AllowButton>
-            <DenyButton>X</DenyButton>
+            <Form>
+              <AllowButton
+                onClick={() => {
+                  updateData(
+                    { collectionName: "greets", id: greeting._id },
+                    {
+                      name: greeting.name,
+                      from: greeting.from,
+                      message: greeting.message,
+                      status: "1",
+                    }
+                  );
+                }}
+              >
+                ✔
+              </AllowButton>
+              <DenyButton
+                onClick={() => {
+                  deleteData({ collectionName: "greets", id: greeting._id });
+                }}
+              >
+                X
+              </DenyButton>
+            </Form>
           </li>
         ))}
       </GreetingsList>
@@ -71,6 +142,10 @@ const Wishlist = styled.ul`
   list-style-type: none;
   li {
     margin-bottom: 5px;
+    width: 60%;
+    margin: 4px auto;
+    display: flex;
+    justify-content: space-between;
     :last-of-type {
       margin-bottom: 0;
     }
@@ -85,6 +160,8 @@ const GreetingsList = styled.ul`
   margin-top: 5%;
   li {
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
     :last-of-type {
       margin-bottom: 0;
     }
@@ -113,4 +190,8 @@ const DenyButton = styled.button`
   border-radius: 50%;
   width: 30px;
   height: 30px;
+`;
+
+const Form = styled.form`
+  display: inline-block;
 `;
