@@ -1,27 +1,92 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { Link } from "react-router-dom";
+import { getLoginToken, getUserRights, validateUser } from "../utils/api";
 
 const Login = () => {
-  const handleOnClick = () => {
-    alert(
-      "An dieser Stelle wird man eingeloggt. Nutze doch einfach die Links weiter unten um dein Ziel zu erreichen."
-    );
-  };
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [falseLogin, setFalseLogin] = useState(false);
+  const [userRank, setUserRank] = useState("");
+
+  useEffect(() => {
+    try {
+      const doFetch = async () => {
+        if (localStorage.getItem("token") !== null) {
+          const rank = await getUserRights({
+            token: localStorage.getItem("token"),
+          });
+          setUserRank(rank);
+          setLoggedIn(true);
+          console.log(rank);
+        }
+      };
+      doFetch();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <Body>
-      <LoginForm>
-        <Input type="text" placeholder="Benutzername" />
-        <Input type="password" placeholder="Passwort" />
-        <Button type="submit" onClick={handleOnClick}>
-          Einloggen
-        </Button>
-        <Link to="/admin">
-          Zum Administrator-Bereich(Shortcut während des Developments)
-        </Link>
-        <Link to="/dj">Zum DJ-Bereich(Shortcut während des Developments)</Link>
-      </LoginForm>
+      {!loggedIn && (
+        <LoginForm
+          onSubmit={async (event) => {
+            event.preventDefault();
+            if (loginData.username !== "") {
+              const loginstate = await validateUser({ ...loginData });
+              if (loginstate === true) {
+                setLoggedIn(true);
+                setFalseLogin(false);
+                const token = await getLoginToken({
+                  username: loginData.username,
+                });
+                setUserRank(await getUserRights({ token }));
+                localStorage.setItem("token", token);
+              } else {
+                setFalseLogin(true);
+              }
+            }
+            setLoginData({ username: "", password: "" });
+          }}
+        >
+          {falseLogin && <p>Benutzername oder Passwort falsch</p>}
+          <Input
+            type="text"
+            placeholder="Benutzername"
+            value={loginData.username}
+            onChange={(event) =>
+              setLoginData({ ...loginData, username: event.target.value })
+            }
+          />
+          <Input
+            type="password"
+            placeholder="Passwort"
+            value={loginData.password}
+            onChange={(event) =>
+              setLoginData({ ...loginData, password: event.target.value })
+            }
+          />
+          <Button type="submit">Einloggen</Button>
+        </LoginForm>
+      )}
+      {loggedIn && userRank === "2" && (
+        <>
+          <Link to="/admin">Zum Administrator-Bereich</Link>
+          <Link to="/dj">Zum DJ-Bereich</Link>
+        </>
+      )}
+      {loggedIn && userRank === "1" && (
+        <>
+          <Link to="/dj">Zum DJ-Bereich</Link>
+        </>
+      )}
+      {loggedIn && userRank === "0" && (
+        <p>
+          Bitte kontaktiere einen Admin, der dir die nötigen Rechte vergeben
+          kann.
+        </p>
+      )}
     </Body>
   );
 };
@@ -39,7 +104,7 @@ const Body = styled.div`
   }
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   width: 80%;
   height: 100%;
   border: 2px solid black;

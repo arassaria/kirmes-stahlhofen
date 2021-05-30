@@ -1,12 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components/macro";
 import {
   deleteData,
   getAdminData,
   updateData,
   updateStreamSource,
+  getUserRights,
 } from "../utils/api";
 
 const Admin = () => {
@@ -14,19 +16,30 @@ const Admin = () => {
   const [greetings, setGreetings] = useState([]);
   const [streamSource, setStreamSource] = useState("");
 
+  const history = useHistory();
+
   useEffect(() => {
     try {
       const doFetch = async () => {
-        const musicRequests = await getAdminData({ collectionName: "music" });
-        const greetings = await getAdminData({ collectionName: "greets" });
-        setMusicRequests(musicRequests);
-        setGreetings(greetings);
+        if (localStorage.getItem("token")) {
+          const rank = await getUserRights({
+            token: localStorage.getItem("token"),
+          });
+          if (rank === "2") {
+            const musicRequests = await getAdminData({
+              collectionName: "music",
+            });
+            const greetings = await getAdminData({ collectionName: "greets" });
+            setMusicRequests(musicRequests);
+            setGreetings(greetings);
+          } else history.push("/");
+        } else history.push("/");
       };
       doFetch();
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [history]);
 
   const handleOnChange = (event) => {
     setStreamSource(event.target.value);

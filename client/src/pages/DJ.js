@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components/macro";
-import { getDJData, updateData, deleteData } from "../utils/api";
+import { getDJData, updateData, deleteData, getUserRights } from "../utils/api";
 
 const DJ = () => {
   const [musicRequests, setMusicRequests] = useState([]);
   const [greetings, setGreetings] = useState([]);
 
+  const history = useHistory();
+
   useEffect(() => {
     try {
       const doFetch = async () => {
-        const musicRequests = await getDJData({ collectionName: "music" });
-        const greetings = await getDJData({ collectionName: "greets" });
-        setMusicRequests(musicRequests);
-        setGreetings(greetings);
+        if (localStorage.getItem("token")) {
+          const rank = await getUserRights({
+            token: localStorage.getItem("token"),
+          });
+          if (rank === "2") {
+            const musicRequests = await getDJData({
+              collectionName: "music",
+            });
+            const greetings = await getDJData({ collectionName: "greets" });
+            setMusicRequests(musicRequests);
+            setGreetings(greetings);
+          } else if (rank === "1") {
+            const musicRequests = await getDJData({
+              collectionName: "music",
+            });
+            const greetings = await getDJData({ collectionName: "greets" });
+            setMusicRequests(musicRequests);
+            setGreetings(greetings);
+          } else history.push("/");
+        } else history.push("/");
       };
       doFetch();
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [history]);
 
   return (
     <Body>

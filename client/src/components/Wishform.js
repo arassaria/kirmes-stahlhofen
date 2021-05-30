@@ -22,6 +22,7 @@ const Wishform = ({ formStatus }) => {
           onChange={(event) =>
             setMusicWish({ ...musicWish, song: event.target.value })
           }
+          required
         />
         <input
           type="text"
@@ -30,6 +31,7 @@ const Wishform = ({ formStatus }) => {
           onChange={(event) =>
             setMusicWish({ ...musicWish, artist: event.target.value })
           }
+          required
         />
         <button type="submit">Musikwunsch abschicken</button>
       </Form>
@@ -50,6 +52,7 @@ const Wishform = ({ formStatus }) => {
           onChange={(event) =>
             setGreeting({ ...greeting, name: event.target.value })
           }
+          required
         />
         <input
           type="text"
@@ -58,6 +61,7 @@ const Wishform = ({ formStatus }) => {
           onChange={(event) =>
             setGreeting({ ...greeting, from: event.target.value })
           }
+          required
         />
         <input
           type="text"
@@ -66,6 +70,7 @@ const Wishform = ({ formStatus }) => {
           onChange={(event) =>
             setGreeting({ ...greeting, message: event.target.value })
           }
+          required
         />
         <button type="submit">Grußwunsch abschicken</button>
       </Form>

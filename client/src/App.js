@@ -11,8 +11,20 @@ import Login from "./pages/Login";
 import Livestream from "./pages/Livestream";
 import Admin from "./pages/Admin";
 import DJ from "./pages/DJ";
+import Register from "./pages/Register";
+import { useEffect, useState } from "react";
+import Logout from "./pages/Logout";
 
 const App = () => {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const doFetch = () => {
+      setToken(localStorage.getItem("token"));
+    };
+    doFetch();
+  }, []);
+
   return (
     <Router>
       <GlobalStyle />
@@ -29,7 +41,8 @@ const App = () => {
         <Link to="/sponsors">Sponsoren</Link>
         <Link to="/impressum">Impressum</Link>
         <Link to="/contact">Kontakt</Link>
-        <Link to="/login">Login</Link>
+        {!token && <Link to="/login">Login</Link>}
+        {token && <Link to="/logout">Logout</Link>}
       </Nav>
       <Switch>
         <Route path="/programm">
@@ -46,6 +59,12 @@ const App = () => {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
+        <Route path="/staff/register">
+          <Register />
         </Route>
         <Route path="/admin">
           <Admin />
