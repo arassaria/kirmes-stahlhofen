@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Stream from "../components/Stream";
 import styled from "styled-components/macro";
+import Wishform from "../components/Wishform";
 
 const Livestream = () => {
-  const handleOnClick = () => {
-    alert(
-      "Dein Gruß/Musikwunsch wurde gespeichert. (Diese Benachrichtigung dient nur zu Demonstrationszwecken)"
-    );
-  };
+  const [formStatus, setFormStatus] = useState("music");
 
   return (
     <>
@@ -24,29 +21,24 @@ const Livestream = () => {
                 id="music"
                 name="wish"
                 value="music"
-                checked
+                onClick={() => setFormStatus("music")}
+                defaultChecked
               />
               <label for="music">Musikwunsch</label>
             </div>
             <div>
-              <input type="radio" id="greeting" name="wish" value="greeting" />
-              <label for="greeting">Grußsendung</label>
+              <input
+                type="radio"
+                id="greets"
+                name="wish"
+                value="greets"
+                onClick={() => setFormStatus("greets")}
+              />
+              <label for="greets">Grußsendung</label>
             </div>
           </div>
-          <input
-            type="text"
-            placeholder="Musikwunsch o. zu grüßende Person(engruppe) eingeben"
-          />
-          <input
-            type="text"
-            placeholder="Grußnachricht eingeben(bei Musikwunsch nicht zu sehen)"
-          />
-          <input
-            type="text"
-            placeholder="Wer grüßt?(Optional und bei Musikwunsch nicht zu sehen"
-          />
-          <button onClick={handleOnClick}>Musikwunsch/Gruß abschicken</button>
         </Form>
+        <Wishform formStatus={formStatus} />
       </Body>
     </>
   );

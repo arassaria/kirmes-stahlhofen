@@ -69,9 +69,9 @@ const DJ = () => {
                   updateData(
                     { collectionName: "greets", id: greeting._id },
                     {
-                      name: greeting.name,
-                      from: greeting.from,
-                      message: greeting.message,
+                      name: "**********",
+                      from: "**********",
+                      message: "**********",
                       status: "2",
                     }
                   );

@@ -16,6 +16,16 @@ export async function getStreamSource() {
   return returnedData;
 }
 
+export async function addData({ collectionName }, props) {
+  await fetch(`api/user/${collectionName}`, {
+    method: "POST",
+    body: JSON.stringify(props),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 export async function updateStreamSource(streamSource) {
   await fetch("/api/admin/stream", {
     method: "PATCH",
