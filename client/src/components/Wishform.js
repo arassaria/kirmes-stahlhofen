@@ -42,7 +42,7 @@ const Wishform = ({ formStatus }) => {
         onSubmit={(event) => {
           event.preventDefault();
           addData({ collectionName: "greets" }, greeting);
-          setGreeting({ status: 0, name: "", from: "", message: "" });
+          setGreeting({ status: "0", name: "", from: "", message: "" });
         }}
       >
         <input

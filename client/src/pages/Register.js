@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components/macro";
 import { checkAvailability, registerNewUser } from "../utils/api";
 
 const Register = () => {
   const [userData, setUserData] = useState({});
+
+  const history = useHistory();
 
   return (
     <Form
@@ -15,6 +18,7 @@ const Register = () => {
         if (usernameAvailable === true) {
           registerNewUser({ ...userData });
           setUserData({ username: "", password: "" });
+          history.push("/");
         } else {
           alert(
             "Benutzername schon vergeben. Bitte wählen sie einen anderen Benutzernamen aus."
