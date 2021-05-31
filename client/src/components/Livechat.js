@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const port = process.env.Port || 4200;
 
-const socket = io(`ws://kirmes-stahlhofen.herokuapp.com:${port}`);
+const socket = io(`https://kirmes-stahlhofen.herokuapp.com:${port}`);
 
 function Livechat() {
   const [state, setState] = useState({ message: "", name: "" });
