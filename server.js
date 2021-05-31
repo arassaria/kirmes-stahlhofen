@@ -9,6 +9,19 @@ const port = process.env.PORT || 4200;
 const admin = require("./routes/admin");
 const dj = require("./routes/dj");
 const user = require("./routes/user");
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  },
+});
+
+io.on("connection", (socket) => {
+  socket.on("message", ({ name, message }) => {
+    io.emit("message", { name, message });
+  });
+});
 
 app.use(express.json());
 
@@ -34,7 +47,7 @@ async function run() {
   await connectToDb(process.env.DB_URI, process.env.DB_NAME);
   console.log("Connected to Database");
 
-  app.listen(port, () => {
+  http.listen(port, () => {
     console.log(`Listening at http://localhost:${port}.`);
   });
 }
