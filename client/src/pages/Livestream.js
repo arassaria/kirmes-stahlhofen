@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Stream from "../components/Stream";
 import styled from "styled-components/macro";
 import Wishform from "../components/Wishform";
+import Livechat from "../components/Livechat";
 
 const Livestream = () => {
   const [formStatus, setFormStatus] = useState("music");
@@ -39,6 +40,7 @@ const Livestream = () => {
           </div>
         </Form>
         <Wishform formStatus={formStatus} />
+        <Livechat />
       </Body>
     </>
   );
