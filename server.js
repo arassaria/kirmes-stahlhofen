@@ -12,7 +12,7 @@ const user = require("./routes/user");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://kirmes-stahlhofen.herokuapp.com:3000",
     methods: ["GET", "POST", "PATCH", "DELETE"],
   },
 });
