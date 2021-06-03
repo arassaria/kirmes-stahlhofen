@@ -45,6 +45,10 @@ const Wishform = ({ formStatus }) => {
           setGreeting({ status: "0", name: "", from: "", message: "" });
         }}
       >
+        <FlowLink href="https://www.og-stahlhofen.de/datenschutzerklaerung">
+          Mit dem Absenden dieses Formulares stimmen sie dem Speichern der von
+          ihnen genannten Daten nach DSGVO zu.
+        </FlowLink>
         <input
           type="text"
           value={greeting.name}
@@ -85,4 +89,10 @@ export default Wishform;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  max-width: 400px;
+`;
+
+const FlowLink = styled.a`
+  color: #e31e25;
+  margin-bottom: 15px;
 `;

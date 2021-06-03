@@ -34,4 +34,5 @@ const IFrame = styled.iframe`
   overflow: hidden;
   width: 560px;
   height: 314px;
+  box-shadow: 2px 2px 6px #333333;
 `;

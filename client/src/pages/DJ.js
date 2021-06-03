@@ -137,6 +137,7 @@ const Wishlist = styled.ul`
     width: 60%;
     margin: 4px auto;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     :last-of-type {
       margin-bottom: 0;
@@ -154,6 +155,7 @@ const GreetingsList = styled.ul`
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     :last-of-type {
       margin-bottom: 0;
     }
@@ -173,15 +175,15 @@ const Message = styled.span`
 const AllowButton = styled.button`
   background-color: limegreen;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
 `;
 
 const DenyButton = styled.button`
   background-color: red;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
 `;
 
 const Form = styled.form`

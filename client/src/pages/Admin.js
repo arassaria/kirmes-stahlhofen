@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components/macro";
+import Wishform from "../components/Wishform";
 import {
   deleteData,
   getAdminData,
@@ -53,15 +54,18 @@ const Admin = () => {
 
   return (
     <Body>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={streamSource}
-          placeholder="StreamSource"
-          onChange={handleOnChange}
-        />
-        <input type="submit" />
-      </form>
+      <FlexRow>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={streamSource}
+            placeholder="StreamSource"
+            onChange={handleOnChange}
+          />
+          <input type="submit" />
+        </form>
+        <Wishform formStatus="music" />
+      </FlexRow>
       <Wishlist>
         {musicRequests?.map((musicRequest) => (
           <li key={musicRequest._id} id={musicRequest._id}>
@@ -207,4 +211,9 @@ const DenyButton = styled.button`
 
 const Form = styled.form`
   display: inline-block;
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

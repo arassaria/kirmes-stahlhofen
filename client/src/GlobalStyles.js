@@ -6,8 +6,10 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         background-size: cover;
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
         margin: 0;
+        padding: 0 0 40px 0;
     }
 
     a {

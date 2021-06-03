@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const { connectToDb } = require("./lib/database");
-const { getCollection } = require("./lib/serverMethods");
 const app = express();
 const port = process.env.PORT || 4200;
 const admin = require("./routes/admin");

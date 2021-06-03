@@ -37,8 +37,8 @@ const Livestream = () => {
               <label for="greets">Grußsendung</label>
             </div>
           </div>
+          <Wishform formStatus={formStatus} />
         </Form>
-        <Wishform formStatus={formStatus} />
       </Body>
     </>
   );
@@ -58,9 +58,13 @@ const Body = styled.div`
 `;
 
 const Form = styled.div`
-  background-color: green;
-  display: flex;
-  flex-direction: column;
+  background-color: #009746;
+  padding: 10px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 6px #333333;
+  > :first-child {
+    margin-bottom: 50px;
+  }
 `;
 
 const H3 = styled.h3`
