@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
-import { Link } from "react-router-dom";
 import { getLoginToken, getUserRights, validateUser } from "../utils/api";
 
 const Login = () => {
@@ -50,6 +49,7 @@ const Login = () => {
             setLoginData({ username: "", password: "" });
           }}
         >
+          <H1>Login</H1>
           {falseLogin && <p>Benutzername oder Passwort falsch</p>}
           <Input
             type="text"
@@ -72,13 +72,12 @@ const Login = () => {
       )}
       {loggedIn && userRank === "2" && (
         <>
-          <Link to="/admin">Zum Administrator-Bereich</Link>
-          <Link to="/dj">Zum DJ-Bereich</Link>
+          <FlowLink href="/admin">Zum Administrator-Bereich</FlowLink>
         </>
       )}
       {loggedIn && userRank === "1" && (
         <>
-          <Link to="/dj">Zum DJ-Bereich</Link>
+          <FlowLink href="/dj">Zum DJ-Bereich</FlowLink>
         </>
       )}
       {loggedIn && userRank === "0" && (
@@ -130,4 +129,12 @@ const Button = styled.button`
   width: 60%;
   border-radius: 25px;
   background: grey;
+`;
+
+const FlowLink = styled.a`
+  color: #e31e25;
+`;
+
+const H1 = styled.h1`
+  text-align: center;
 `;
