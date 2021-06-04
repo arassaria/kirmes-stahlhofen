@@ -10,11 +10,33 @@ import Massivhaus from "../assets/massivhaus.png";
 import Gesandsverein from "../assets/gesangsverein.png";
 import DRK from "../assets/drk.png";
 import DJs from "../assets/djs.png";
+import Werbung from "../assets/vodafone-werbung.jpeg";
 
 const Sponsors = () => {
   return (
     <Body>
       <SponsorList>
+        <Heading>Werbung</Heading>
+        <div>
+          <img src={Werbung} alt="Vodafone Werbung" width="400" height="400" />
+          <h2>
+            Glasfaser für Stahlhofen und gigaschnelles Internet sind wichtige
+            Zukunftsperspektiven...
+          </h2>
+          <p>
+            Die Vorvermarktung beginnt ab dem 01.06.2021. Und damit schnell alle
+            an Infos kommen, wird das Vodafone Infomobil am Kirmes Samstag,
+            05.06.2021 in Stahlhofen von 10:00 Uhr bis 17:00 Uhr am
+            Kirchenvorplatz stehen.
+          </p>
+          <p>Also nutzt die Möglichkeit um euch dort beraten zu lassen.</p>
+        </div>
+        <div>
+          <p>
+            Übrigens gerne könnt ihr vormittags auch gerade einen Schnelltest
+            beim DRK mit einem Beusch des Infobils verbinden.
+          </p>
+        </div>
         <Heading>Sponsoren</Heading>
         <SponsorRow>
           <a href="https://www.rewe.de/marktseite/wallmerod/1765300/rewe-markt-frankfurter-strasse-47">
@@ -74,6 +96,9 @@ const Body = styled.div`
   }
   @media screen and (max-width: 900px) {
     margin: 20px 0;
+  }
+  div {
+    text-align: center;
   }
 `;
 

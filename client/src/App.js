@@ -88,7 +88,7 @@ const App = () => {
       <Footer>
         <a href="https://www.og-stahlhofen.de/impressum">Impressum</a>
         <p>Kirmes Stahlhofen 2021</p>
-        <a href="https://www.og-stahlhofen.de/datenschutzerklärung">
+        <a href="https://www.og-stahlhofen.de/datenschutzerklaerung">
           Datenschutz
         </a>
       </Footer>
