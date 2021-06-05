@@ -5,6 +5,7 @@ import { addData } from "../utils/api";
 const Wishform = ({ formStatus }) => {
   const [musicWish, setMusicWish] = useState({ status: "0" });
   const [greeting, setGreeting] = useState({ status: "0" });
+  const [fussball, setFussball] = useState({ value: "ja" });
 
   if (formStatus === "music") {
     return (
@@ -77,6 +78,41 @@ const Wishform = ({ formStatus }) => {
           required
         />
         <button type="submit">Grußwunsch abschicken</button>
+      </Form>
+    );
+  } else if (formStatus === "em") {
+    return (
+      <Form
+        onSubmit={(event) => {
+          event.preventDefault();
+          addData({ collectionName: "fussball-em" }, fussball);
+          setFussball();
+          alert("Vielen Dank für deine Teilnahme an der Abstimmung.");
+        }}
+      >
+        <h3>Wollt ihr ein Public Viewing zur Fussball-EM?</h3>
+        <div>
+          <input
+            type="radio"
+            id="ja"
+            name="fussballEm"
+            value="Ja"
+            onChange={(event) => setFussball({ value: event.target.value })}
+            defaultChecked
+          />
+          <label for="ja">Ja</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="nein"
+            name="fussballEm"
+            value="nein"
+            onChange={(event) => setFussball({ value: event.target.value })}
+          />
+          <label for="nein">Nein</label>
+        </div>
+        <button type="submit">Abstimmen</button>
       </Form>
     );
   } else {

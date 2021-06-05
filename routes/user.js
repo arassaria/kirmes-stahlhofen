@@ -11,6 +11,16 @@ const router = express.Router();
 const CryptoJS = require("crypto-js");
 const musicWishes = "musicRequests";
 const greetings = "greetings";
+const fussball = "fussball";
+
+router.post("/fussball-em", async (req, res, next) => {
+  try {
+    await insertData({ collectionName: fussball, data: req.body });
+    res.send("Data added");
+  } catch (error) {
+    nexz(new Error(error));
+  }
+});
 
 router.post("/music", async (req, res, next) => {
   try {

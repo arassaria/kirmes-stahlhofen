@@ -36,6 +36,16 @@ const Livestream = () => {
               />
               <label for="greets">Grußsendung</label>
             </div>
+            <div>
+              <input
+                type="radio"
+                id="em"
+                name="wish"
+                value="em"
+                onClick={() => setFormStatus("em")}
+              />
+              <label for="em">Zur EM-Abstimmung</label>
+            </div>
           </div>
           <Wishform formStatus={formStatus} />
         </Form>
